@@ -13,7 +13,7 @@
         text-align: center;
     }
     
-    section {
+    .quiz-status {
         display: flex;
         justify-content: center;
     }
