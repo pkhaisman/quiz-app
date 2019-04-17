@@ -12,25 +12,27 @@
     </header>
     <main>
         <form action="/not-sure-where-this-goes" method="POST">
-            <legend>This is the legend</legend>
-            <input type="radio">
-            <label for="">x</label>
-            <br>
-            <input type="radio">
-            <label for="">x</label>
-            <br>
-            <input type="radio">
-            <label for="">x</label>
-            <br>
-            <input type="radio">
-            <label for="">x</label>
-            <br>
-            <button>Submit</button>
+            <fieldset>
+                <legend>This is the legend</legend>
+                <input type="radio" name="answers" value="tbd" id="a">
+                <label for="a">x</label>
+                <br>
+                <input type="radio" name="answers" value="tbd" id="b">
+                <label for="b">x</label>
+                <br>
+                <input type="radio" name="answers" value="tbd" id="c">
+                <label for="c">x</label>
+                <br>
+                <input type="radio" name="answers" value="tbd" id="d">
+                <label for="d">x</label>
+                <br>
+                <button>Submit</button>
+            </fieldset>
         </form>
-        <section>
+        <div>
             <p class="progress">Question: 2/10</p>
             <p class="score">Score: 3</p>
-        </section>
+        </div>
     </main>
 
     <script src="index.js"></script>
