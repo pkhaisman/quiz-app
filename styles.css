@@ -1,3 +1,40 @@
-h1 {
-    color: red
+@media screen and (min-width: 0px) {
+    header {
+        text-align: center;
+    }
+    
+    form {
+        background-color: grey;
+        width: 280px;
+        margin: 0 auto;
+    }
+
+    legend {
+        text-align: center;
+    }
+    
+    section {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .progress {
+        margin-right: 5px;
+    }
+    
+    .score {
+        margin-left: 5px;
+    }
+}
+
+@media screen and (min-width: 500px) {
+    form {
+        width: 400px;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    form {
+        width: 600px;
+    }
 }
