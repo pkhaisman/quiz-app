@@ -1,40 +1,7 @@
-@media screen and (min-width: 0px) {
-    header {
-        text-align: center;
-    }
-    
-    form {
-        background-color: grey;
-        width: 280px;
-        margin: 0 auto;
-    }
-
-    legend {
-        text-align: center;
-    }
-    
-    .quiz-status {
-        display: flex;
-        justify-content: center;
-    }
-    
-    .progress {
-        margin-right: 5px;
-    }
-    
-    .score {
-        margin-left: 5px;
-    }
+* {
+    box-sizing: border-box;
 }
 
-@media screen and (min-width: 500px) {
-    form {
-        width: 400px;
-    }
-}
-
-@media screen and (min-width: 800px) {
-    form {
-        width: 600px;
-    }
+body {
+    font-family: 'Roboto', sans-serif;
 }

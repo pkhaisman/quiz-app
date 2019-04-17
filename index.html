@@ -2,6 +2,8 @@
 <html lang='en'>
 <head>
     <title>Climbing Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -11,30 +13,25 @@
         <p>Prove your climbing knowledge!</p>
     </header>
     <main>
-        <form action="/not-sure-where-this-goes" method="POST">
+        <h2>Ready to begin?</h2>
+        <input class="js-render-next-question" type="button" value="Sure am!">
+      
+        <!-- <form action="/not-sure-where-this-goes" method="POST">
             <fieldset>
-                <legend>This is the legend</legend>
-                <input type="radio" name="answers" value="tbd" id="a">
-                <label for="a">x</label>
-                <br>
-                <input type="radio" name="answers" value="tbd" id="b">
-                <label for="b">x</label>
-                <br>
-                <input type="radio" name="answers" value="tbd" id="c">
-                <label for="c">x</label>
-                <br>
-                <input type="radio" name="answers" value="tbd" id="d">
-                <label for="d">x</label>
-                <br>
+                <legend>What is the answer to this question?</legend>
                 <button>Submit</button>
             </fieldset>
         </form>
         <div class="quiz-status">
-            <p class="progress">Question: 2/10</p>
-            <p class="score">Score: 3</p>
-        </div>
+            <p class="progress"></p>
+            <p class="score"></p>
+        </div> -->
     </main>
 
+    <script
+        src="https://code.jquery.com/jquery-3.4.0.min.js"
+        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+        crossorigin="anonymous"></script>
     <script src="index.js"></script>
 </body>
 </html>
