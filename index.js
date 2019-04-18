@@ -1,30 +1,44 @@
-questionArray = [
-    {
-        question: 'This is question 1',
-        answer1: 'This is answer 1',
-        answer2: 'This is answer 2',
-        answer3: 'This is answer 3',
-        answer4: 'This is answer 4'
-    },
-    {
-        question: 'This is question 2',
-        answer1: 'This is answer 1',
-        answer2: 'This is answer 2',
-        answer3: 'This is answer 3',
-        answer4: 'This is answer 4'
-    }
-]
+function renderLandingPage() {
+    console.log('renderLandingPage ran');
+}
 
-function handleNextBtnClick() {
-    console.log('handleNextBtnClick ran');
-    $('.js-render-next-question').on('click', event => {
-        // 
-        
-    });
+function renderNextQuestion() {
+    console.log('renderNextQuestion ran');
+}
+
+function displayUserProgress() {
+    console.log('displayUserProgress ran');
+}
+
+function checkIfAnswerCorrect() {
+    console.log('checkIfAnswerCorrect ran');
+}
+
+function ifAnswerIncorrect() {
+    console.log('ifAnswerIncorrect ran');
+}
+
+function ifAnswerCorrect() {
+    console.log('ifAnswerCorrect ran');
+}
+
+function displayUserScore() {
+    console.log('displayUserScore ran');
+}
+
+function renderEndingPage() {
+    console.log('renderEndingPage ran');
 }
 
 function renderQuizApp() {
-    handleNextBtnClick();
+    renderLandingPage();
+    renderNextQuestion();
+    displayUserProgress();
+    checkIfAnswerCorrect();
+    ifAnswerCorrect();
+    ifAnswerIncorrect();
+    displayUserScore();
+    renderEndingPage();
 }
 
 $(renderQuizApp);
