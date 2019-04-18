@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <title>Climbing Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <header class="header">
+        <h1 class="header__title">The Climbing Quiz</h1>
+        <p class="header__subtitle">Prove your climbing knowledge!</p>
+    </header>
+    <main class="container">
+        <div class="form-style">
+            <form class="question-form" action="/some-patch" method="POST">
+                <fieldset>
+                    <legend>Question 1</legend>
+                    <div class="question-form-option">
+                        <input type="radio" id="answer1" name="answers" value="answer1">
+                        <label for="answer1">Answer 1</label>
+                    </div>
+                    <div class="question-form-option">
+                        <input type="radio" id="answer2" name="answers" value="answer2">
+                        <label for="answer2">Answer 2</label>
+                    </div>
+                    <div class="question-form-option">
+                        <input type="radio" id="answer3" name="answers" value="answer3">
+                        <label for="answer3">Answer 3</label>
+                    </div>
+                    <div class="question-form-option">
+                        <input type="radio" id="answer4" name="answers" value="answer4">
+                        <label for="answer4">Answer 4</label>
+                    </div>
+                </fieldset>
+            </form>
+            <a href="correct-incorrect.html">
+                <input class="button" type="button" value="Next">
+            </a>
+        </div>
+        <div class="flex-container">
+            <p>Question: x/10</p>
+            <p>Score: x</p>
+        </div>
+    </main>
+
+    <script
+        src="https://code.jquery.com/jquery-3.4.0.min.js"
+        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+        crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+</body>
+</html>
