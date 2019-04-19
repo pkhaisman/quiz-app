@@ -12,7 +12,7 @@ const STORE = [
             'Figure-eight knot',
             'Clove hitch'
         ],
-        correctAnswer: 'Figure-eight knot',
+        correctAnswer: 'answer3',
     },
     {
         question: 'Which of these objectives is most suitable for a beginner?',
@@ -22,7 +22,7 @@ const STORE = [
             'A skyscraper',
             'Your house'
         ],
-        correctAnswer: 'Your local gym!'
+        correctAnswer: 'answer1'
     },
     {
         question: 'Which of the following are not a piece of gear used for climbing?',
@@ -32,17 +32,17 @@ const STORE = [
             'Harness',
             'Rope'
         ],
-        correctAnswer: 'Spatula'
+        correctAnswer: 'answer2'
     },
     {
         question: 'Are free climbing and free soloing the same thing?',
         options: [
+            'Yes',
             'No',
-            'No',
-            'No',
-            'No'
+            'Yes',
+            'Yes'
         ],
-        correctAnswer: 'No'
+        correctAnswer: 'answer2'
     },
     {
         question: 'Who is the only climber to have free soloed El Capitan?',
@@ -52,7 +52,7 @@ const STORE = [
             'Lynn Hill',
             'Nina Williams'
         ],
-        correctAnswer: 'Alex Honnold'
+        correctAnswer: 'answer1'
     },
     {
         question: 'Which route climbs the most prominent feature on El Capitan?',
@@ -62,7 +62,7 @@ const STORE = [
             'The oh-my-god-who-cares',
             'The pinky'
         ],
-        correctAnswer: 'The nose'
+        correctAnswer: 'answer2'
     },
     {
         question: 'What is the primary purpose of a helmet?',
@@ -72,7 +72,7 @@ const STORE = [
             'To protect your head from falcon talons',
             'To signal to others that you are a climber'
         ],
-        correctAnswer: 'To protect your head from falling rocks'
+        correctAnswer: 'answer2'
     },
     {
         question: 'Which of the following are not a type of climbing?',
@@ -82,7 +82,7 @@ const STORE = [
             'Top-roping',
             'Playing football'
         ],
-        correctAnswer: 'Playing football'
+        correctAnswer: 'answer4'
     },
     {
         question: 'Which of the following are not a climbing destination?',
@@ -92,7 +92,7 @@ const STORE = [
             'The Philadelphia Art Museum',
             'Indian Creek'
         ],
-        correctAnswer: 'The Philadelphia Art Museum'
+        correctAnswer: 'answer3'
     },
     {
         question: 'When is it ok to untie your knot?',
@@ -102,7 +102,7 @@ const STORE = [
             'When you are on the ground',
             'Always!'
         ],
-        correctAnswer: 'When you are on the ground'
+        correctAnswer: 'answer3'
     },
 ];
 
@@ -117,8 +117,10 @@ function renderLandingPage() {
     `;
 
     $('.container').html(landingPage);
-}
 
+    renderNextQuestion();
+
+}
 
 function generateQuizQuestionForm(question) {
     console.log('generateQuizQuestionForm ran');
@@ -152,8 +154,8 @@ function generateQuizQuestionForm(question) {
         <input class="button js-render-question" type="button" value="Next">
         </div>
         <div class="flex-container">
-            <p>Question: x/10</p>
-            <p>Score: x</p>
+            <p class='user-progress'></p>
+            <p class='user-score'>Score: x</p>
         </div>
     `;
 }
@@ -162,8 +164,7 @@ function generateQuizQuestionForm(question) {
 // go to the next question
 function renderNextQuestion() {
     console.log('renderNextQuestion ran');
-
-    $('.container').on('click', '.js-render-question', event => {
+    $('.container').on('click', '.js-render-question', function () {
         let quizQuestion = generateQuizQuestionForm(STORE);
         $('.container').html(quizQuestion);
     });
@@ -172,22 +173,57 @@ function renderNextQuestion() {
 // this function will be responsible for displaying what question
 //  out of ten the user is on
 function displayUserProgress() {
-    console.log('displayUserProgress ran');
+    console.log('displayUserProgress ran');    
+        let userProgress = STORE[0].questionIndex -1;
+        $('.user-progress').text(userProgress);    
+}
+
+function handleCorrectAnswer() {
+    console.log('correct')
+
+    $('.container').html('');
+    $('.container').append(`
+        <p>Correct answer!</p>
+        <input class="button js-render-question" type="button" value="Next">
+    `);
+}
+
+function handleIncorrectAnswer() {
+    console.log('incorrect')
+
+    $('.container').html('');
+    $('.container').append(`
+        <p>Incorrect answer!</p>
+        <input class="button js-render-question" type="button" value="Next">
+    `);
+}
+
+function checkIfDone() {
+    $('.container').on('click', '.js-render-question', function () {
+        if (STORE[0].questionIndex < 11) {
+            renderNextQuestion();
+        } else {
+            console.log('last')
+            // renderEndingPage();
+        }
+    });
 }
 
 // this function will be responsible for when a user submits an answer
 function checkIfAnswerCorrect() {
     console.log('checkIfAnswerCorrect ran');
-}
 
-// this function will be responsible for when the answer is incorrect
-function ifAnswerIncorrect() {
-    console.log('ifAnswerIncorrect ran');
-}
-
-// this function will be responsible for when the answer is correct
-function ifAnswerCorrect() {
-    console.log('ifAnswerCorrect ran');
+    $('.container').on('click', '.js-render-question', function () {
+        displayUserProgress();
+        let userChoice = $('input[name=answers]:checked', '.question-form').val();
+        if (userChoice === STORE[STORE[0].questionIndex - 1].correctAnswer) {
+            handleCorrectAnswer();
+            // renderNextQuestion();
+        } else {
+            handleIncorrectAnswer();
+            // renderNextQuestion();
+        }
+    });
 }
 
 // this function will be responsible for display how many questions
@@ -208,11 +244,9 @@ function renderEndingPage() {
 // activating our individual functions
 function renderQuizApp() {
     renderLandingPage();
-    renderNextQuestion();
+    // renderNextQuestion();
     displayUserProgress();
     checkIfAnswerCorrect();
-    ifAnswerCorrect();
-    ifAnswerIncorrect();
     displayUserScore();
     renderEndingPage();
 }
