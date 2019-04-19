@@ -116,7 +116,7 @@ function renderLandingPage() {
         <input class="button js-render-question" type="button" value="Sure am!">
     `;
 
-    $('.form-style').html(landingPage);
+    $('.container').html(landingPage);
 }
 
 
@@ -127,28 +127,34 @@ function generateQuizQuestionForm(question) {
     STORE[0].questionIndex++;
 
     return `
-        <form class="question-form" action="/some-patch" method="POST">
-            <fieldset>
-                <legend>${STORE[index].question}</legend>
-                <div class="question-form-option">
-                    <input type="radio" id="answer1" name="answers" value="answer1">
-                    <label for="answer1">${STORE[index].options[0]}</label>
-                </div>
-                <div class="question-form-option">
-                    <input type="radio" id="answer2" name="answers" value="answer2">
-                    <label for="answer2">${STORE[index].options[1]}</label>
-                </div>
-                <div class="question-form-option">
-                    <input type="radio" id="answer3" name="answers" value="answer3">
-                    <label for="answer3">${STORE[index].options[2]}</label>
-                </div>
-                <div class="question-form-option">
-                    <input type="radio" id="answer4" name="answers" value="answer4">
-                    <label for="answer4">${STORE[index].options[3]}</label>
-                </div>
-            </fieldset>
-        </form>        
+        <div class="form-style">       
+            <form class="question-form" action="/some-patch" method="POST">
+                <fieldset>
+                    <legend>${STORE[index].question}</legend>
+                    <div class="question-form-option">
+                        <input type="radio" id="answer1" name="answers" value="answer1">
+                        <label for="answer1">${STORE[index].options[0]}</label>
+                    </div>
+                    <div class="question-form-option">
+                        <input type="radio" id="answer2" name="answers" value="answer2">
+                        <label for="answer2">${STORE[index].options[1]}</label>
+                    </div>
+                    <div class="question-form-option">
+                        <input type="radio" id="answer3" name="answers" value="answer3">
+                        <label for="answer3">${STORE[index].options[2]}</label>
+                    </div>
+                    <div class="question-form-option">
+                        <input type="radio" id="answer4" name="answers" value="answer4">
+                        <label for="answer4">${STORE[index].options[3]}</label>
+                    </div>
+                </fieldset>
+             </form>        
         <input class="button js-render-question" type="button" value="Next">
+        </div>
+        <div class="flex-container">
+            <p>Question: x/10</p>
+            <p>Score: x</p>
+        </div>
     `;
 }
 
@@ -157,9 +163,9 @@ function generateQuizQuestionForm(question) {
 function renderNextQuestion() {
     console.log('renderNextQuestion ran');
 
-    $('.form-style').on('click', '.js-render-question', event => {
+    $('.container').on('click', '.js-render-question', event => {
         let quizQuestion = generateQuizQuestionForm(STORE);
-        $('.form-style').html(quizQuestion);
+        $('.container').html(quizQuestion);
     });
 }
 
