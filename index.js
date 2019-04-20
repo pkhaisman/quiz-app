@@ -208,12 +208,16 @@ function handleCorrectAnswer() {
     }
 }
 
+function renderCorrectAnswerString() {
+    return STORE[index].options[STORE[index].answerIndex];
+}
+
 function handleIncorrectAnswer() {
     console.log('incorrect');
 
     $('.container').html('');
     $('.container').append(`
-        <p>Incorrect! The correct answer is ${STORE[index].options[STORE[index].answerIndex]}</p>
+        <p>Incorrect! The correct answer is ${renderCorrectAnswerString()}</p>
         <input class="button js-render-question" type="button" value="Next">
         <div class="flex-container">
             <p class='user-progress'></p>
