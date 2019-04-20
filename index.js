@@ -1,9 +1,8 @@
 'use-strict';
 
+let index = -1;
+
 const STORE = [
-    {
-        questionIndex: 1
-    },
     {
         question: 'What is the main knot used to secure a climber to their rope?',
         options: [
@@ -113,20 +112,16 @@ function renderLandingPage() {
 
     let landingPage = `
         <h2 class="quiz-prompt">Ready to begin?</h2>
-        <input class="button js-render-question" type="button" value="Sure am!">
+        <input class="button js-render-first-question" type="button" value="Sure am!">
     `;
 
     $('.container').html(landingPage);
-
-    renderNextQuestion();
-
 }
 
 function generateQuizQuestionForm(question) {
     console.log('generateQuizQuestionForm ran');
     
-    let index = STORE[0].questionIndex;
-    STORE[0].questionIndex++;
+    index++;
 
     return `
         <div class="form-style">       
@@ -151,7 +146,7 @@ function generateQuizQuestionForm(question) {
                     </div>
                 </fieldset>
              </form>        
-        <input class="button js-render-question" type="button" value="Next">
+        <input class="button js-check-answer" type="button" value="Next">
         </div>
         <div class="flex-container">
             <p class='user-progress'></p>
@@ -164,18 +159,16 @@ function generateQuizQuestionForm(question) {
 // go to the next question
 function renderNextQuestion() {
     console.log('renderNextQuestion ran');
-    $('.container').on('click', '.js-render-question', function () {
+
+    $('.container').on('click', '.js-render-first-question', function () {        
         let quizQuestion = generateQuizQuestionForm(STORE);
         $('.container').html(quizQuestion);
     });
-}
 
-// this function will be responsible for displaying what question
-//  out of ten the user is on
-function displayUserProgress() {
-    console.log('displayUserProgress ran');    
-        let userProgress = STORE[0].questionIndex -1;
-        $('.user-progress').text(userProgress);    
+    $('.container').on('click', '.js-render-question', function () {        
+        let quizQuestion = generateQuizQuestionForm(STORE);
+        $('.container').html(quizQuestion);
+    });
 }
 
 function handleCorrectAnswer() {
@@ -186,6 +179,10 @@ function handleCorrectAnswer() {
         <p>Correct answer!</p>
         <input class="button js-render-question" type="button" value="Next">
     `);
+
+    if (index >= 9) {
+        renderEndingPage();
+    }
 }
 
 function handleIncorrectAnswer() {
@@ -196,34 +193,32 @@ function handleIncorrectAnswer() {
         <p>Incorrect answer!</p>
         <input class="button js-render-question" type="button" value="Next">
     `);
-}
 
-function checkIfDone() {
-    $('.container').on('click', '.js-render-question', function () {
-        if (STORE[0].questionIndex < 11) {
-            renderNextQuestion();
-        } else {
-            console.log('last')
-            // renderEndingPage();
-        }
-    });
+    if (index >= 9) {
+        renderEndingPage();
+    }
 }
 
 // this function will be responsible for when a user submits an answer
 function checkIfAnswerCorrect() {
     console.log('checkIfAnswerCorrect ran');
 
-    $('.container').on('click', '.js-render-question', function () {
-        displayUserProgress();
+    $('.container').on('click', '.js-check-answer', function () {
         let userChoice = $('input[name=answers]:checked', '.question-form').val();
-        if (userChoice === STORE[STORE[0].questionIndex - 1].correctAnswer) {
+        if (userChoice === STORE[index].correctAnswer) {
             handleCorrectAnswer();
-            // renderNextQuestion();
         } else {
             handleIncorrectAnswer();
-            // renderNextQuestion();
         }
     });
+}
+
+// this function will be responsible for displaying what question
+//  out of ten the user is on
+function displayUserProgress() {
+    console.log('displayUserProgress ran');    
+    let userProgress = STORE[index + 1];
+    $('.user-progress').text(userProgress);    
 }
 
 // this function will be responsible for display how many questions
@@ -236,6 +231,14 @@ function displayUserScore() {
 //  all questions and reveived all feedback
 function renderEndingPage() {
     console.log('renderEndingPage ran');
+
+    $('.container').html('');
+    $('.container').append(`
+        <p>You answered x/10 correctly!</p>
+        <input class="button js-render-first-question" type="button" value="Restart">
+    `);
+
+    index = -1;
 }
 
 
@@ -244,11 +247,10 @@ function renderEndingPage() {
 // activating our individual functions
 function renderQuizApp() {
     renderLandingPage();
-    // renderNextQuestion();
+    renderNextQuestion();
     displayUserProgress();
     checkIfAnswerCorrect();
     displayUserScore();
-    renderEndingPage();
 }
 
 $(renderQuizApp);
