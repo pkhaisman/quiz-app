@@ -1,6 +1,7 @@
 'use-strict';
 
 let index = -1;
+let userScore = 0;
 
 const STORE = [
     {
@@ -12,6 +13,7 @@ const STORE = [
             'Clove hitch'
         ],
         correctAnswer: 'answer3',
+        answerIndex: 2
     },
     {
         question: 'Which of these objectives is most suitable for a beginner?',
@@ -21,7 +23,8 @@ const STORE = [
             'A skyscraper',
             'Your house'
         ],
-        correctAnswer: 'answer1'
+        correctAnswer: 'answer1',
+        answerIndex: 0
     },
     {
         question: 'Which of the following are not a piece of gear used for climbing?',
@@ -31,7 +34,8 @@ const STORE = [
             'Harness',
             'Rope'
         ],
-        correctAnswer: 'answer2'
+        correctAnswer: 'answer2',
+        answerIndex: 1
     },
     {
         question: 'Are free climbing and free soloing the same thing?',
@@ -41,7 +45,8 @@ const STORE = [
             'Yes',
             'Yes'
         ],
-        correctAnswer: 'answer2'
+        correctAnswer: 'answer2',
+        answerIndex: 1
     },
     {
         question: 'Who is the only climber to have free soloed El Capitan?',
@@ -51,7 +56,8 @@ const STORE = [
             'Lynn Hill',
             'Nina Williams'
         ],
-        correctAnswer: 'answer1'
+        correctAnswer: 'answer1',
+        answerIndex: 0
     },
     {
         question: 'Which route climbs the most prominent feature on El Capitan?',
@@ -61,7 +67,8 @@ const STORE = [
             'The oh-my-god-who-cares',
             'The pinky'
         ],
-        correctAnswer: 'answer2'
+        correctAnswer: 'answer2',
+        answerIndex: 1
     },
     {
         question: 'What is the primary purpose of a helmet?',
@@ -71,7 +78,8 @@ const STORE = [
             'To protect your head from falcon talons',
             'To signal to others that you are a climber'
         ],
-        correctAnswer: 'answer2'
+        correctAnswer: 'answer2',
+        answerIndex: 1
     },
     {
         question: 'Which of the following are not a type of climbing?',
@@ -81,7 +89,8 @@ const STORE = [
             'Top-roping',
             'Playing football'
         ],
-        correctAnswer: 'answer4'
+        correctAnswer: 'answer4',
+        answerIndex: 3
     },
     {
         question: 'Which of the following are not a climbing destination?',
@@ -91,7 +100,8 @@ const STORE = [
             'The Philadelphia Art Museum',
             'Indian Creek'
         ],
-        correctAnswer: 'answer3'
+        correctAnswer: 'answer3',
+        answerIndex: 2
     },
     {
         question: 'When is it ok to untie your knot?',
@@ -101,7 +111,8 @@ const STORE = [
             'When you are on the ground',
             'Always!'
         ],
-        correctAnswer: 'answer3'
+        correctAnswer: 'answer3',
+        answerIndex: 2
     },
 ];
 
@@ -150,7 +161,7 @@ function generateQuizQuestionForm(question) {
         </div>
         <div class="flex-container">
             <p class='user-progress'></p>
-            <p class='user-score'>Score: x</p>
+            <p class='user-score'></p>
         </div>
     `;
 }
@@ -163,22 +174,34 @@ function renderNextQuestion() {
     $('.container').on('click', '.js-render-first-question', function () {        
         let quizQuestion = generateQuizQuestionForm(STORE);
         $('.container').html(quizQuestion);
+        displayUserProgress();
+        displayUserScore();
     });
 
     $('.container').on('click', '.js-render-question', function () {        
         let quizQuestion = generateQuizQuestionForm(STORE);
         $('.container').html(quizQuestion);
+        displayUserProgress();
+        displayUserScore();        
     });
 }
 
 function handleCorrectAnswer() {
-    console.log('correct')
+    console.log('correct');
 
+    userScore++;
     $('.container').html('');
     $('.container').append(`
-        <p>Correct answer!</p>
+        <p>Correct!</p>
         <input class="button js-render-question" type="button" value="Next">
+        <div class="flex-container">
+            <p class='user-progress'></p>
+            <p class='user-score'></p>
+        </div>
     `);
+
+    displayUserProgress();
+    displayUserScore(); 
 
     if (index >= 9) {
         renderEndingPage();
@@ -186,13 +209,20 @@ function handleCorrectAnswer() {
 }
 
 function handleIncorrectAnswer() {
-    console.log('incorrect')
+    console.log('incorrect');
 
     $('.container').html('');
     $('.container').append(`
-        <p>Incorrect answer!</p>
+        <p>Incorrect! The correct answer is ${STORE[index].options[STORE[index].answerIndex]}</p>
         <input class="button js-render-question" type="button" value="Next">
+        <div class="flex-container">
+            <p class='user-progress'></p>
+            <p class='user-score'></p>
+        </div>
     `);
+
+    displayUserProgress();
+    displayUserScore(); 
 
     if (index >= 9) {
         renderEndingPage();
@@ -200,8 +230,8 @@ function handleIncorrectAnswer() {
 }
 
 // this function will be responsible for when a user submits an answer
-function checkIfAnswerCorrect() {
-    console.log('checkIfAnswerCorrect ran');
+function checkAnswer() {
+    console.log('checkAnswer ran');
 
     $('.container').on('click', '.js-check-answer', function () {
         let userChoice = $('input[name=answers]:checked', '.question-form').val();
@@ -216,8 +246,9 @@ function checkIfAnswerCorrect() {
 // this function will be responsible for displaying what question
 //  out of ten the user is on
 function displayUserProgress() {
-    console.log('displayUserProgress ran');    
-    let userProgress = STORE[index + 1];
+    console.log('displayUserProgress ran');  
+
+    let userProgress = `Question ${index + 1}/10`;
     $('.user-progress').text(userProgress);    
 }
 
@@ -225,6 +256,9 @@ function displayUserProgress() {
 //  the user has answered correctly
 function displayUserScore() {
     console.log('displayUserScore ran');
+
+    let scoreDisplay = `Score: ${userScore}`;
+    $('.user-score').text(scoreDisplay);
 }
 
 // this function will be responsible for when the user has answered
@@ -248,9 +282,7 @@ function renderEndingPage() {
 function renderQuizApp() {
     renderLandingPage();
     renderNextQuestion();
-    displayUserProgress();
-    checkIfAnswerCorrect();
-    displayUserScore();
+    checkAnswer();
 }
 
 $(renderQuizApp);
