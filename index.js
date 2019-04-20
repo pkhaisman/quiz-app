@@ -122,8 +122,11 @@ function renderLandingPage() {
     console.log('renderLandingPage ran');
 
     let landingPage = `
-        <h2 class="quiz-prompt">Ready to begin?</h2>
-        <input class="button js-render-first-question" type="button" value="Sure am!">
+        <div class='user-feedback'>
+            <div>
+                <input class="button js-render-first-question" type="button" value="Ready to begin?">        
+            </div>
+        </div>
     `;
 
     $('.container').html(landingPage);
@@ -135,6 +138,10 @@ function generateQuizQuestionForm(question) {
     index++;
 
     return `
+        <div class="flex-container">
+            <p class='user-progress'></p>
+            <p class='user-score'></p>
+        </div>
         <div class="form-style">       
             <form class="question-form" action="/some-patch" method="POST">
                 <fieldset>
@@ -156,13 +163,9 @@ function generateQuizQuestionForm(question) {
                         <label for="answer4">${STORE[index].options[3]}</label>
                     </div>
                 </fieldset>
-             </form>        
+            </form>        
+        </div>
         <input class="button js-check-answer" type="button" value="Next">
-        </div>
-        <div class="flex-container">
-            <p class='user-progress'></p>
-            <p class='user-score'></p>
-        </div>
     `;
 }
 
@@ -192,12 +195,16 @@ function handleCorrectAnswer() {
     userScore++;
     $('.container').html('');
     $('.container').append(`
-        <p>Correct!</p>
-        <input class="button js-render-question" type="button" value="Next">
         <div class="flex-container">
             <p class='user-progress'></p>
             <p class='user-score'></p>
         </div>
+        <div class='user-feedback'>
+            <div>
+                <p>Correct!</p>
+            </div>
+        </div>
+        <input class="button js-render-question" type="button" value="Next">
     `);
 
     displayUserProgress();
@@ -217,12 +224,16 @@ function handleIncorrectAnswer() {
 
     $('.container').html('');
     $('.container').append(`
-        <p>Incorrect! The correct answer is ${renderCorrectAnswerString()}</p>
-        <input class="button js-render-question" type="button" value="Next">
         <div class="flex-container">
             <p class='user-progress'></p>
             <p class='user-score'></p>
         </div>
+        <div class='user-feedback'>
+            <div>
+                <p>Incorrect! The correct answer is ${renderCorrectAnswerString()}</p>
+            </div>
+        </div>
+        <input class="button js-render-question" type="button" value="Next">
     `);
 
     displayUserProgress();
@@ -272,13 +283,16 @@ function renderEndingPage() {
 
     $('.container').html('');
     $('.container').append(`
-        <p>You answered x/10 correctly!</p>
-        <input class="button js-render-first-question" type="button" value="Restart">
+        <div class='user-feedback'>
+            <div>
+                <p>You answered ${userScore}/10 correctly!</p>
+                <input class="button js-render-first-question" type="button" value="Restart">
+            </div>  
+        </div>
     `);
 
     index = -1;
 }
-
 
 // this function will be our callback when the page loads. it's 
 // responsible for initially rendering the shopping list, and 
