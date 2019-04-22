@@ -2,22 +2,20 @@
     box-sizing: border-box;
 }
 
-html {
+html, body {
     height: 100%;
 }
 
 body {
-    height: 100%;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background-size: cover;
     background-repeat: no-repeat;
     background-image: 
     linear-gradient(
-      rgba(0, 0, 0, 0.4),
-      rgba(0, 0, 0, 0.4)
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2)
     ),
     url("https://images.unsplash.com/photo-1498429089284-41f8cf3ffd39?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80");
-    line-height: 20px;
     color: white;
 }
 
@@ -39,6 +37,15 @@ body {
         text-align: center;
         margin-top: 50px;
     }
+
+    .header__title {
+        font-weight: 400;
+        font-size: 50px;
+    }
+
+    .header__subtitle {
+        margin-top: 42px;
+    }
     
     .container {
         width: 275px;
@@ -52,13 +59,14 @@ body {
 
     .form-style {
         height: 275px;
-        background-color: rgba(165, 165, 175, .7);
+        background-color: rgba(165, 165, 175, .75);
         padding: 20px;
         margin-bottom: 20px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         border-radius: 5px;
+        line-height: 20px;
     }
 
     .question-form {
@@ -75,13 +83,14 @@ body {
     }
 
     .user-feedback {
-        background-color: rgba(165, 165, 175, .7);
+        background-color: rgba(165, 165, 175, .75);
         height: 275px;
         margin-bottom: 20px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         border-radius: 5px;
+        line-height: 20px;
     }
 
     .radio-btn {
