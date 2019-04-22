@@ -2,21 +2,42 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
 body {
+    height: 100%;
     font-family: 'Roboto', sans-serif;
-    /* background-image: url("https://images.unsplash.com/photo-1498429089284-41f8cf3ffd39?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80");
     background-size: cover;
-    background-repeat: no-repeat; */
+    background-repeat: no-repeat;
+    background-image: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
+    ),
+    url("https://images.unsplash.com/photo-1498429089284-41f8cf3ffd39?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80");
+    line-height: 20px;
+    color: white;
 }
 
 .button {
-    background-color: green;
-    padding: 5px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: #429b46;
+    cursor: pointer;
 }
 
 @media screen and (min-width: 0) {
     .header {
         text-align: center;
+        margin-top: 50px;
     }
     
     .container {
@@ -25,13 +46,19 @@ body {
         text-align: center;
     }
 
+    fieldset {
+        border: none;
+    }
+
     .form-style {
-        height: 224.59px;
-        background-color: #ededed;
+        height: 275px;
+        background-color: rgba(165, 165, 175, .7);
         padding: 20px;
+        margin-bottom: 20px;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        border-radius: 5px;
     }
 
     .question-form {
@@ -48,15 +75,39 @@ body {
     }
 
     .user-feedback {
-        background-color: #ededed;
-        height: 224.59px;
+        background-color: rgba(165, 165, 175, .7);
+        height: 275px;
+        margin-bottom: 20px;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        border-radius: 5px;
     }
 
-    .button {
-        margin-top: 20px;
+    .radio-btn {
+        position: absolute;
+    }
+
+    .btn-label {
+        position: relative;
+        left: 25px;
+        top: 0px;
+    }
+
+    .legend {
+        /* line-height: 20px; */
+        margin-bottom: 20px;
+    }
+
+    .correct-answer-msg {
+        margin: 0 30px;
+    }
+
+    .center-landing-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
     }
 }
 

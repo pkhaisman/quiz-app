@@ -121,15 +121,22 @@ const STORE = [
 function renderLandingPage() {
     console.log('renderLandingPage ran');
 
-    let landingPage = `
-        <div class='user-feedback'>
+    let landingPage = `    
+        <div class='center-landing-page'>
             <div>
-                <input class="button js-render-first-question" type="button" value="Ready to begin?">        
+                <header class="header">
+                    <h1 class="header__title">The Climbing Quiz</h1>
+                    <p class="header__subtitle">Prove your climbing knowledge!</p>
+                </header>
+                <main class="container">
+                    <input class="button js-render-first-question" type="button" value="Start">        
+                </main>
             </div>
         </div>
     `;
 
-    $('.container').html(landingPage);
+    $('body').html('');
+    $('body').html(landingPage);
 }
 
 function generateQuizQuestionForm(question) {
@@ -145,22 +152,22 @@ function generateQuizQuestionForm(question) {
         <div class="form-style">       
             <form class="question-form" action="/some-patch" method="POST">
                 <fieldset>
-                    <legend>${STORE[index].question}</legend>
+                    <legend class="legend">${STORE[index].question}</legend>
                     <div class="question-form-option">
-                        <input type="radio" id="answer1" name="answers" value="answer1">
-                        <label for="answer1">${STORE[index].options[0]}</label>
+                        <input class="radio-btn" type="radio" id="answer1" name="answers" value="answer1">
+                        <label class="btn-label" for="answer1">${STORE[index].options[0]}</label>
                     </div>
                     <div class="question-form-option">
-                        <input type="radio" id="answer2" name="answers" value="answer2">
-                        <label for="answer2">${STORE[index].options[1]}</label>
+                        <input class="radio-btn" type="radio" id="answer2" name="answers" value="answer2">
+                        <label class="btn-label" for="answer2">${STORE[index].options[1]}</label>
                     </div>
                     <div class="question-form-option">
-                        <input type="radio" id="answer3" name="answers" value="answer3">
-                        <label for="answer3">${STORE[index].options[2]}</label>
+                        <input class="radio-btn" type="radio" id="answer3" name="answers" value="answer3">
+                        <label class="btn-label" for="answer3">${STORE[index].options[2]}</label>
                     </div>
                     <div class="question-form-option">
-                        <input type="radio" id="answer4" name="answers" value="answer4">
-                        <label for="answer4">${STORE[index].options[3]}</label>
+                        <input class="radio-btn" type="radio" id="answer4" name="answers" value="answer4">
+                        <label class="btn-label" for="answer4">${STORE[index].options[3]}</label>
                     </div>
                 </fieldset>
             </form>        
@@ -229,8 +236,9 @@ function handleIncorrectAnswer() {
             <p class='user-score'></p>
         </div>
         <div class='user-feedback'>
-            <div>
-                <p>Incorrect! The correct answer is ${renderCorrectAnswerString()}</p>
+            <div class='correct-answer-msg'>
+                <p>Incorrect!</p>
+                <p>The correct answer is '${renderCorrectAnswerString()}'</p>
             </div>
         </div>
         <input class="button js-render-question" type="button" value="Next">
