@@ -1,6 +1,6 @@
 'use-strict';
 
-let index = -1;
+let index = 0;
 let userScore = 0;
 
 const STORE = [
@@ -129,7 +129,7 @@ function renderLandingPage() {
                     <p class="header__subtitle">Prove your climbing knowledge!</p>
                 </header>
                 <main class="container">
-                    <input class="button js-render-first-question" type="button" value="Start">        
+                    <input class="button js-render-first-question" type="submit" value="Start">        
                 </main>
             </div>
         </div>
@@ -139,10 +139,10 @@ function renderLandingPage() {
     $('body').html(landingPage);
 }
 
+// this function gets called inside of handleNextQuestion. this function
+// returns the html of the current quiz question
 function generateQuizQuestionForm(question) {
     console.log('generateQuizQuestionForm ran');
-    
-    index++;
 
     return `
         <div class="flex-container">
@@ -150,30 +150,41 @@ function generateQuizQuestionForm(question) {
             <p class='user-score'></p>
         </div>
         <div class="form-style">       
-            <form class="question-form" action="/some-patch" method="POST">
+            <form class="question-form">
                 <fieldset>
                     <legend class="legend">${STORE[index].question}</legend>
                     <div class="question-form-option">
-                        <input class="radio-btn" type="radio" id="answer1" name="answers" value="answer1">
+                        <input class="radio-btn" type="radio" id="answer1" name="answers" value="answer1" required>
                         <label class="btn-label" for="answer1">${STORE[index].options[0]}</label>
                     </div>
                     <div class="question-form-option">
-                        <input class="radio-btn" type="radio" id="answer2" name="answers" value="answer2">
+                        <input class="radio-btn" type="radio" id="answer2" name="answers" value="answer2" required>
                         <label class="btn-label" for="answer2">${STORE[index].options[1]}</label>
                     </div>
                     <div class="question-form-option">
-                        <input class="radio-btn" type="radio" id="answer3" name="answers" value="answer3">
+                        <input class="radio-btn" type="radio" id="answer3" name="answers" value="answer3" required>
                         <label class="btn-label" for="answer3">${STORE[index].options[2]}</label>
                     </div>
                     <div class="question-form-option">
-                        <input class="radio-btn" type="radio" id="answer4" name="answers" value="answer4">
+                        <input class="radio-btn" type="radio" id="answer4" name="answers" value="answer4" required>
                         <label class="btn-label" for="answer4">${STORE[index].options[3]}</label>
                     </div>
-                </fieldset>
-            </form>        
+                    </fieldset>
+                    <input class="button js-check-answer" type="submit" value="Next">
+                </form>        
         </div>
-        <input class="button js-check-answer" type="button" value="Next">
     `;
+}
+
+// this function gets called inside of renderNextQuestion. this function is hard to describe
+// it renders the question to the html while also running checkAnswer and updateUserStats
+// which adds a click listener to check the answer and updates the user stats respectively
+function handleNextQuestion() {
+    let quizQuestion = generateQuizQuestionForm(STORE);
+    index++;
+    $('.container').html(quizQuestion);
+    checkAnswer();
+    updateUserStats();
 }
 
 // this function will be responsible for when the user clicks to 
@@ -182,20 +193,28 @@ function renderNextQuestion() {
     console.log('renderNextQuestion ran');
 
     $('.container').on('click', '.js-render-first-question', function () {        
-        let quizQuestion = generateQuizQuestionForm(STORE);
-        $('.container').html(quizQuestion);
-        displayUserProgress();
-        displayUserScore();
+        handleNextQuestion();
     });
 
     $('.container').on('click', '.js-render-question', function () {        
-        let quizQuestion = generateQuizQuestionForm(STORE);
-        $('.container').html(quizQuestion);
-        displayUserProgress();
-        displayUserScore();        
+        handleNextQuestion();     
     });
 }
 
+// this function updates and renders user stats to html
+function updateUserStats() {
+    displayUserProgress();
+    displayUserScore(); 
+}
+
+// this function renders the ending page when index is less than or equal to 10
+function checkifDone() {
+    if (index >= 10) {
+        renderEndingPage();
+    }
+}
+
+// this function runs when the user submits a correct answer. it renders user feedback
 function handleCorrectAnswer() {
     console.log('correct');
 
@@ -209,23 +228,19 @@ function handleCorrectAnswer() {
         <div class='user-feedback'>
             <div>
                 <p class='correct-incorrect'>Correct!</p>
+                <input class="button js-render-question" type="button" value="Next">
             </div>
         </div>
-        <input class="button js-render-question" type="button" value="Next">
     `);
-
-    displayUserProgress();
-    displayUserScore(); 
-
-    if (index >= 9) {
-        renderEndingPage();
-    }
 }
 
+// this function returns the string representing the correct answer. gets called in
+// handleIncorrectAnswer
 function renderCorrectAnswerString() {
-    return STORE[index].options[STORE[index].answerIndex];
+    return STORE[index - 1].options[STORE[index - 1].answerIndex];
 }
 
+// this function gets called when user submits an incorrect answer. renders user feedback
 function handleIncorrectAnswer() {
     console.log('incorrect');
 
@@ -239,30 +254,27 @@ function handleIncorrectAnswer() {
             <div class='correct-answer-msg'>
                 <p class='correct-incorrect'>Incorrect!</p>
                 <p>The correct answer is '${renderCorrectAnswerString()}'</p>
+                <input class="button js-render-question" type="button" value="Next">
             </div>
         </div>
-        <input class="button js-render-question" type="button" value="Next">
     `);
-
-    displayUserProgress();
-    displayUserScore(); 
-
-    if (index >= 9) {
-        renderEndingPage();
-    }
 }
 
-// this function will be responsible for when a user submits an answer
+// this function will be responsible for when a user submits an answer. checks whether
+// answer is correct or incorrect and calls respective handle functions
 function checkAnswer() {
     console.log('checkAnswer ran');
 
-    $('.container').on('click', '.js-check-answer', function () {
+    $('.question-form').submit(function(event) {
+        event.preventDefault();
         let userChoice = $('input[name=answers]:checked', '.question-form').val();
-        if (userChoice === STORE[index].correctAnswer) {
+        if (userChoice === STORE[index - 1].correctAnswer) {
             handleCorrectAnswer();
         } else {
             handleIncorrectAnswer();
         }
+        checkifDone();
+        updateUserStats();
     });
 }
 
@@ -271,7 +283,7 @@ function checkAnswer() {
 function displayUserProgress() {
     console.log('displayUserProgress ran');  
 
-    let userProgress = `Question ${index + 1}/10`;
+    let userProgress = `Question ${index}/10`;
     $('.user-progress').text(userProgress);    
 }
 
@@ -299,7 +311,8 @@ function renderEndingPage() {
         </div>
     `);
 
-    index = -1;
+    index = 0;
+    userScore = 0;
 }
 
 // this function will be our callback when the page loads. it's 
@@ -308,7 +321,6 @@ function renderEndingPage() {
 function renderQuizApp() {
     renderLandingPage();
     renderNextQuestion();
-    checkAnswer();
 }
 
 $(renderQuizApp);
