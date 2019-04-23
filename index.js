@@ -208,7 +208,7 @@ function handleCorrectAnswer() {
         </div>
         <div class='user-feedback'>
             <div>
-                <p>Correct!</p>
+                <p class='correct-incorrect'>Correct!</p>
             </div>
         </div>
         <input class="button js-render-question" type="button" value="Next">
@@ -237,7 +237,7 @@ function handleIncorrectAnswer() {
         </div>
         <div class='user-feedback'>
             <div class='correct-answer-msg'>
-                <p>Incorrect!</p>
+                <p class='correct-incorrect'>Incorrect!</p>
                 <p>The correct answer is '${renderCorrectAnswerString()}'</p>
             </div>
         </div>

@@ -45,6 +45,7 @@ body {
 
     .header__subtitle {
         margin-top: 42px;
+        font-size: 20px
     }
     
     .container {
@@ -117,6 +118,11 @@ body {
         flex-direction: column;
         justify-content: center;
         height: 100%;
+    }
+
+    .correct-incorrect {
+        font-weight: 700;
+        font-size: 20px;
     }
 }
 
