@@ -10,3 +10,6 @@ next question. User score and progress are displayed. When the user reaches the 
 the quiz they have the option to start over. 
 
 ## Image
+
+![alt text](https://raw.githubusercontent.com/pkhaisman/portfolio-site/master/photos/project-screenshots/quiz-app-screenshot-2.png
+)
