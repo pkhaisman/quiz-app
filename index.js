@@ -116,8 +116,6 @@ const STORE = [
     },
 ];
 
-// this function will be responsible for rendering the landing
-//  page on page load
 function renderLandingPage() {
     console.log('renderLandingPage ran');
 
@@ -139,8 +137,6 @@ function renderLandingPage() {
     $('body').html(landingPage);
 }
 
-// this function gets called inside of handleNextQuestion. this function
-// returns the html of the current quiz question
 function generateQuizQuestionForm(question) {
     console.log('generateQuizQuestionForm ran');
 
@@ -176,9 +172,6 @@ function generateQuizQuestionForm(question) {
     `;
 }
 
-// this function gets called inside of renderNextQuestion. this function is hard to describe
-// it renders the question to the html while also running checkAnswer and updateUserStats
-// which adds a click listener to check the answer and updates the user stats respectively
 function handleNextQuestion() {
     let quizQuestion = generateQuizQuestionForm(STORE);
     index++;
@@ -187,8 +180,6 @@ function handleNextQuestion() {
     updateUserStats();
 }
 
-// this function will be responsible for when the user clicks to 
-// go to the next question
 function renderNextQuestion() {
     console.log('renderNextQuestion ran');
 
@@ -201,20 +192,17 @@ function renderNextQuestion() {
     });
 }
 
-// this function updates and renders user stats to html
 function updateUserStats() {
     displayUserProgress();
     displayUserScore(); 
 }
 
-// this function renders the ending page when index is less than or equal to 10
 function checkifDone() {
     if (index >= 10) {
         renderEndingPage();
     }
 }
 
-// this function runs when the user submits a correct answer. it renders user feedback
 function handleCorrectAnswer() {
     console.log('correct');
 
@@ -234,13 +222,10 @@ function handleCorrectAnswer() {
     `);
 }
 
-// this function returns the string representing the correct answer. gets called in
-// handleIncorrectAnswer
 function renderCorrectAnswerString() {
     return STORE[index - 1].options[STORE[index - 1].answerIndex];
 }
 
-// this function gets called when user submits an incorrect answer. renders user feedback
 function handleIncorrectAnswer() {
     console.log('incorrect');
 
@@ -260,8 +245,6 @@ function handleIncorrectAnswer() {
     `);
 }
 
-// this function will be responsible for when a user submits an answer. checks whether
-// answer is correct or incorrect and calls respective handle functions
 function checkAnswer() {
     console.log('checkAnswer ran');
 
@@ -278,8 +261,6 @@ function checkAnswer() {
     });
 }
 
-// this function will be responsible for displaying what question
-//  out of ten the user is on
 function displayUserProgress() {
     console.log('displayUserProgress ran');  
 
@@ -287,8 +268,6 @@ function displayUserProgress() {
     $('.user-progress').text(userProgress);    
 }
 
-// this function will be responsible for display how many questions
-//  the user has answered correctly
 function displayUserScore() {
     console.log('displayUserScore ran');
 
@@ -296,8 +275,6 @@ function displayUserScore() {
     $('.user-score').text(scoreDisplay);
 }
 
-// this function will be responsible for when the user has answered
-//  all questions and reveived all feedback
 function renderEndingPage() {
     console.log('renderEndingPage ran');
 
@@ -315,9 +292,6 @@ function renderEndingPage() {
     userScore = 0;
 }
 
-// this function will be our callback when the page loads. it's 
-// responsible for initially rendering the shopping list, and 
-// activating our individual functions
 function renderQuizApp() {
     renderLandingPage();
     renderNextQuestion();
